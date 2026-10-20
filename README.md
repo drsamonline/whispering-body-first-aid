@@ -16,6 +16,7 @@
   <img alt="Made with" src="https://img.shields.io/badge/made%20with-HTML%20%C2%B7%20CSS%20%C2%B7%20JS-f7df1e?style=flat-square">
   <img alt="Deployed with GitHub Pages" src="https://img.shields.io/badge/deploy-GitHub%20Pages-1E2C1B?style=flat-square">
   <img alt="Companion to the book" src="https://img.shields.io/badge/companion%20to-The%20Whispering%20Body-A98A45?style=flat-square">
+  <img alt="Version" src="https://img.shields.io/badge/version-2.0-blue?style=flat-square">
 </p>
 
 <!-- Call to action -->
@@ -24,9 +25,11 @@
 
 <!-- Screenshots -->
 <p align="center">
-  <img src="docs/screenshot-find.png" width="300" alt="Find a remedy by problem">
-  &nbsp;&nbsp;
-  <img src="docs/screenshot-box.png" width="300" alt="The 30-remedy box">
+  <img src="docs/screenshot-find.png" width="240" alt="Find a remedy by problem">
+  &nbsp;
+  <img src="docs/screenshot-box.png" width="240" alt="The 30-remedy box">
+  &nbsp;
+  <img src="docs/screenshot-guide.png" width="240" alt="The guide, with diagrams">
 </p>
 
 ---
@@ -39,7 +42,8 @@ match one remedy to the whole picture of a symptom — the same "listen, then
 match" method the book teaches.
 
 It is a **single web app**: no account, no tracking, no internet needed once it
-is open.
+is open. The guide and the about page carry hand-drawn **SVG diagrams** — how a
+remedy is made, how to pace a dose, and the listening loop.
 
 ## Features
 
@@ -51,6 +55,7 @@ is open.
 | 📖 **Guide** | How to dose · how a remedy is made (mother tincture → 1C → 30C → globules) · how to carry and handle the box · how to use it. |
 | 🌐 **Languages** | English · हिन्दी · ગુજરાતી — the whole interface and content. |
 | 📴 **Offline** | Installs to the home screen and runs without a connection. |
+| ℹ️ **About & licence** | What the app is, the licence terms, and the required attribution — inside the app. |
 
 ## Install it on your phone
 
