@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://drsamonline.github.io/whispering-body-first-aid/sitemap.xml

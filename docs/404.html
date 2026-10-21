@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#dc2626">
+<title>Page not found — First-Aid Box</title>
+<meta name="robots" content="noindex">
+<link rel="icon" href="/whispering-body-first-aid/icon-192.png">
+<style>
+  :root{--red:#dc2626;--red-d:#b91c1c;--ink:#0f172a;--slate:#475569;--muted:#64748b;--line:#e2e8f0}
+  *{box-sizing:border-box}
+  body{margin:0;min-height:100vh;display:flex;align-items:center;justify-content:center;
+    background:radial-gradient(900px 380px at 85% -10%,#fef2f2 0%,rgba(254,242,242,0) 60%),#fff;
+    color:var(--ink);font-family:"Inter",-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Noto Sans",Helvetica,Arial,sans-serif;
+    line-height:1.6;padding:28px}
+  .box{max-width:560px;text-align:center}
+  .mark{width:56px;height:56px;border-radius:16px;margin:0 auto 22px;display:flex;align-items:center;justify-content:center;
+    background:linear-gradient(150deg,var(--red),#991b1b);color:#fff;box-shadow:0 12px 30px rgba(220,38,38,.28)}
+  .mark svg{width:30px;height:30px}
+  .k{font-size:12px;font-weight:800;letter-spacing:.16em;text-transform:uppercase;color:var(--red)}
+  h1{font-size:clamp(28px,5vw,40px);font-weight:800;letter-spacing:-.02em;margin:12px 0 0}
+  p{color:var(--slate);margin:14px 0 0}
+  .actions{display:flex;flex-wrap:wrap;gap:12px;justify-content:center;margin-top:28px}
+  a.btn{display:inline-flex;align-items:center;gap:9px;font-weight:700;font-size:15.5px;padding:13px 20px;
+    border-radius:12px;text-decoration:none;transition:.2s}
+  .red{background:var(--red);color:#fff;box-shadow:0 10px 26px rgba(220,38,38,.26)}
+  .red:hover{background:var(--red-d)}
+  .ghost{background:#fff;color:var(--ink);border:1px solid var(--line)}
+  .ghost:hover{border-color:#cbd5e1}
+  .note{margin-top:26px;font-size:13px;color:var(--muted)}
+</style>
+</head>
+<body>
+  <div class="box">
+    <div class="mark" aria-hidden="true">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v18M3 12h18"/></svg>
+    </div>
+    <div class="k">Error 404</div>
+    <h1>We couldn’t find that page</h1>
+    <p>The page may have moved, or the link may be out of date. You can head back to the landing page or open the app directly.</p>
+    <div class="actions">
+      <a class="btn red" href="/whispering-body-first-aid/">
+        <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5M11 6l-6 6 6 6"/></svg>
+        Back to the landing page
+      </a>
+      <a class="btn ghost" href="/whispering-body-first-aid/play/">
+        Open the app
+        <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+      </a>
+    </div>
+    <div class="note">In an emergency, seek conventional medical help first — in India, call 112 or 108.</div>
+  </div>
+</body>
+</html>

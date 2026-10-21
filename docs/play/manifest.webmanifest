@@ -1,0 +1,17 @@
+{
+  "name": "First-Aid Box — The Whispering Body",
+  "short_name": "First-Aid Box",
+  "description": "A home homeopathic first-aid companion: 30 remedies, a symptom finder, dosing and handling guidance, and emergency guidance.",
+  "start_url": "./index.html",
+  "scope": "./",
+  "display": "standalone",
+  "orientation": "portrait",
+  "background_color": "#F3F0E4",
+  "theme_color": "#1E2C1B",
+  "lang": "en",
+  "icons": [
+    { "src": "icon-192.png", "sizes": "192x192", "type": "image/png" },
+    { "src": "icon-512.png", "sizes": "512x512", "type": "image/png" },
+    { "src": "icon-maskable-512.png", "sizes": "512x512", "type": "image/png", "purpose": "maskable" }
+  ]
+}

@@ -1,3 +1,24 @@
+<!-- ===== Landing page banner ===== -->
+<h1 align="center">The Whispering Body — First‑Aid Box</h1>
+
+<p align="center"><b>A free, offline home first-aid companion app to the book <i>The Whispering Body</i> by Dr.&nbsp;Sohil&nbsp;Momin.</b><br>
+30 commonly used homeopathic first-aid remedies, a plain-language symptom finder, dosing and handling guidance, and emergency signs — in English, हिन्दी and ગુજરાતી.</p>
+
+<p align="center">
+  <a href="https://drsamonline.github.io/whispering-body-first-aid/"><img alt="Landing page" src="https://img.shields.io/badge/landing%20page-visit-dc2626?style=flat-square"></a>
+  <a href="https://drsamonline.github.io/whispering-body-first-aid/play/"><img alt="Live demo" src="https://img.shields.io/badge/live%20demo-open%20the%20app-2ea44f?style=flat-square"></a>
+  <a href="https://github.com/drsamonline/whispering-body-first-aid"><img alt="Repository" src="https://img.shields.io/badge/github-repository-0f172a?style=flat-square"></a>
+  <img alt="PWA: offline ready" src="https://img.shields.io/badge/PWA-offline%20ready-5A0FC8?style=flat-square">
+  <img alt="Licence: free to use" src="https://img.shields.io/badge/licence-free%20to%20use-2ea44f?style=flat-square">
+  <img alt="Languages" src="https://img.shields.io/badge/languages-English%20%C2%B7%20Hindi%20%C2%B7%20Gujarati-2ea44f?style=flat-square">
+</p>
+
+<h3 align="center">▶&nbsp; <a href="https://drsamonline.github.io/whispering-body-first-aid/play/">Open the app</a> &nbsp;·&nbsp; <a href="https://drsamonline.github.io/whispering-body-first-aid/">Visit the landing page</a></h3>
+<p align="center"><sub>Works offline · installs to your home screen · free to use<br>
+<b>General information only — not a substitute for professional medical care. In an emergency, call 112 or 108.</b></sub></p>
+
+---
+
 <!-- Banner -->
 <h1 align="center">The Whispering Body — First‑Aid Box</h1>
 
