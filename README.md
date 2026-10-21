@@ -20,7 +20,6 @@
 ---
 
 <!-- Banner -->
-<h1 align="center">The Whispering Body — First‑Aid Box</h1>
 
 <p align="center"><b>A free companion app to the book <i>The Whispering Body</i> by Dr.&nbsp;Sohil&nbsp;Momin.</b></p>
 
@@ -41,7 +40,7 @@
 </p>
 
 <!-- Call to action -->
-<h3 align="center">▶&nbsp; <a href="https://drsamonline.github.io/whispering-body-first-aid/">Open the app</a></h3>
+<h3 align="center">▶&nbsp; <a href="https://drsamonline.github.io/whispering-body-first-aid/play/">Open the app</a></h3>
 <p align="center"><sub>Works offline · installs to your home screen · free to use</sub></p>
 
 <!-- Screenshots -->
@@ -80,7 +79,7 @@ remedy is made, how to pace a dose, and the listening loop.
 
 ## Install it on your phone
 
-1. Open **[the app](https://drsamonline.github.io/whispering-body-first-aid/)** in your phone's browser.
+1. Open **[the app](https://drsamonline.github.io/whispering-body-first-aid/play/)** in your phone's browser.
 2. **Add to Home screen** — *Share ▸ Add to Home Screen* on iOS, or the **⋮** menu ▸ *Add to Home screen* on Android.
 3. It now opens like an app, and works offline.
 
