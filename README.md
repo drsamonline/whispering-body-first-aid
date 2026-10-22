@@ -6,6 +6,7 @@
 
 <p align="center">
   <a href="https://drsamonline.github.io/whispering-body-first-aid/"><img alt="Landing page" src="https://img.shields.io/badge/landing%20page-visit-dc2626?style=flat-square"></a>
+<a href="https://drsamonline.github.io/"><img alt="All projects" src="https://img.shields.io/badge/All%20projects-drsamonline.github.io-dc2626?style=flat-square"></a>
   <a href="https://drsamonline.github.io/whispering-body-first-aid/play/"><img alt="Live demo" src="https://img.shields.io/badge/live%20demo-open%20the%20app-2ea44f?style=flat-square"></a>
   <a href="https://github.com/drsamonline/whispering-body-first-aid"><img alt="Repository" src="https://img.shields.io/badge/github-repository-0f172a?style=flat-square"></a>
   <img alt="PWA: offline ready" src="https://img.shields.io/badge/PWA-offline%20ready-5A0FC8?style=flat-square">
