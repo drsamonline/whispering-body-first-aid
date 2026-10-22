@@ -23,18 +23,13 @@
 
 <!-- Banner -->
 
-<p align="center"><b>A free companion app to the book <i>The Whispering Body</i> by Dr.&nbsp;Sohil&nbsp;Momin.</b></p>
-
 <!-- Badges -->
 <p align="center">
-  <a href="LICENSE"><img alt="Licence: free to use" src="https://img.shields.io/badge/licence-free%20to%20use-2ea44f?style=flat-square"></a>
   <a href="LICENSE"><img alt="Reuse: licence required" src="https://img.shields.io/badge/reuse-licence%20required-b02a30?style=flat-square"></a>
   <a href="LICENSE"><img alt="Content: copyrighted" src="https://img.shields.io/badge/content-%C2%A9%20Dr.%20Sohil%20Momin-8957e5?style=flat-square"></a>
   <a href="LICENSE"><img alt="Attribution required in derivative works" src="https://img.shields.io/badge/attribution-required%20in%20derivatives-f0a020?style=flat-square"></a>
 </p>
 <p align="center">
-  <img alt="PWA" src="https://img.shields.io/badge/PWA-offline%20ready-5A0FC8?style=flat-square">
-  <img alt="Languages" src="https://img.shields.io/badge/languages-English%20%C2%B7%20Hindi%20%C2%B7%20Gujarati-2ea44f?style=flat-square">
   <img alt="Made with" src="https://img.shields.io/badge/made%20with-HTML%20%C2%B7%20CSS%20%C2%B7%20JS-f7df1e?style=flat-square">
   <img alt="Deployed with GitHub Pages" src="https://img.shields.io/badge/deploy-GitHub%20Pages-1E2C1B?style=flat-square">
   <img alt="Companion to the book" src="https://img.shields.io/badge/companion%20to-The%20Whispering%20Body-A98A45?style=flat-square">
