@@ -14,6 +14,7 @@
 </p>
 
 <h3 align="center">▶&nbsp; <a href="https://drsamonline.github.io/whispering-body-first-aid/play/">Open the app</a> &nbsp;·&nbsp; <a href="https://drsamonline.github.io/whispering-body-first-aid/">Visit the landing page</a></h3>
+<p align="center">⬇ <a href="https://github.com/drsamonline/whispering-body-first-aid/releases/latest/download/whispering-body-first-aid-portable.exe">Download for Windows (.exe)</a> &nbsp;·&nbsp; <a href="https://github.com/drsamonline/whispering-body-first-aid/releases/latest/download/whispering-body-first-aid.apk">Download for Android (.apk)</a></p>
 <p align="center"><sub>Works offline · installs to your home screen · free to use<br>
 <b>General information only — not a substitute for professional medical care. In an emergency, call 112 or 108.</b></sub></p>
 
