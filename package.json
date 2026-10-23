@@ -1,0 +1,12 @@
+{
+  "name": "whispering-body-first-aid",
+  "version": "1.0.0",
+  "private": true,
+  "description": "The Whispering Body - First-Aid Box: offline homoeopathic first-aid companion.",
+  "scripts": {
+    "test": "node tests/webkit-smoke.test.js"
+  },
+  "devDependencies": {
+    "happy-dom": "^15.11.7"
+  }
+}
