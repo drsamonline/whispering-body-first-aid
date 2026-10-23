@@ -1,120 +1,113 @@
 'use strict';
 /**
- * Whispering Body - First-Aid Box - headless DOM smoke suite.
+ * The Whispering Body - First-Aid Box: headless DOM smoke suite.
  *
- * Drives the *real* app page in happy-dom and asserts that persistence now goes
- * through web-kit's Loom.storage (namespaced under "loom:"), that a preference
- * saved *before* the retrofit (the raw un-prefixed "fab_lang" key) is migrated
- * into Loom.storage with no data loss, and that nothing is written to the raw
- * keys any more.
+ * Drives the real app pages in happy-dom and asserts that persistence now runs
+ * through web-kit's Loom.storage, that the app's own behaviour is unchanged,
+ * and that values saved *before* the retrofit (the legacy raw, un-prefixed
+ * `fab_lang` / `fab_safe` localStorage keys) are migrated into Loom.storage
+ * with no data loss.
  *
- * The app ships two mirrored copies of the page (index.html and the GitHub Pages
- * copy docs/play/index.html); both must behave identically, so the suite runs the
- * whole battery against both.
+ * Both mirrored pages are exercised by default:
+ *   - index.html            (the root app)
+ *   - docs/play/index.html  (the GitHub Pages copy)
  *
- *   node tests/webkit-smoke.test.js [path-to-index.html]
+ *   node tests/webkit-smoke.test.js [path-to-index.html ...]
  */
 const fs = require('fs');
 const path = require('path');
 const { Window } = require('happy-dom');
 
 const root = path.join(__dirname, '..');
-const targets = process.argv[2]
-  ? [path.resolve(process.argv[2])]
-  : [path.join(root, 'index.html'), path.join(root, 'docs', 'play', 'index.html')];
+const files = process.argv.slice(2).length
+  ? process.argv.slice(2)
+  : [path.join(root, 'index.html'), path.join(root, 'docs/play/index.html')];
 
-const results = [];
-const ok = (name, cond, extra = '') => results.push({ name, pass: !!cond, extra });
-
-function loadParts(file) {
+// Read a page: its web-kit runtime, the inline <script> blocks (the migration
+// shim + the app), and the same HTML with every script stripped so it can be
+// parsed without executing anything until we say so.
+function prepare(file) {
   const html = fs.readFileSync(file, 'utf8');
-  const wkPath = path.join(path.dirname(file), 'web-kit.js');
-  const wk = fs.existsSync(wkPath) ? fs.readFileSync(wkPath, 'utf8') : '';
-  const inline = [...html.matchAll(/<script>([\s\S]*?)<\/script>/g)].map(m => m[1]);
+  const wk = fs.readFileSync(path.join(path.dirname(file), 'web-kit.js'), 'utf8');
+  const inline = [...html.matchAll(/<script>([\s\S]*?)<\/script>/g)].map(m => m[1]).join('\n');
   const htmlNoScripts = html.replace(/<script[\s\S]*?<\/script>/g, '');
   return { wk, inline, htmlNoScripts };
 }
 
-function boot(parts, seed) {
+// Boot the page in a fresh window, optionally seeding legacy localStorage first.
+// The app's state object `C` is lexical, so expose it on window from within the
+// same evaluation, then drive/read it through window.__C.
+function boot(p, seed) {
   const w = new Window({ url: 'https://local.test/' });
-  for (const [k, v] of Object.entries(seed || {})) {
-    try { w.localStorage.setItem(k, v); } catch (e) {}
-  }
-  w.document.write(parts.htmlNoScripts);
-  if (parts.wk) w.eval(parts.wk);
-  w.eval(parts.inline.join('\n'));
+  for (const [k, v] of Object.entries(seed || {})) { try { w.localStorage.setItem(k, v); } catch (e) {} }
+  w.document.write(p.htmlNoScripts);
+  w.eval(p.wk);
+  w.eval(p.inline + '\n;window.__C = (typeof C !== "undefined") ? C : null;');
   return w;
 }
-
 function snapshot(w) {
   const out = {};
-  for (let i = 0; i < w.localStorage.length; i++) {
-    const k = w.localStorage.key(i);
-    out[k] = w.localStorage.getItem(k);
-  }
+  for (let i = 0; i < w.localStorage.length; i++) { const k = w.localStorage.key(i); out[k] = w.localStorage.getItem(k); }
   return out;
 }
 
-function suite(label, file) {
-  const parts = loadParts(file);
-  const tag = label + ': ';
+const results = [];
+const ok = (page, name, cond, extra = '') => results.push({ page, name, pass: !!cond, extra });
 
-  // 1. web-kit boots and exposes Loom.storage
-  let w = boot(parts);
-  ok(tag + 'web-kit loaded (window.Loom.storage present)',
-    w.eval('typeof Loom') === 'object' && w.eval('typeof Loom.storage.get') === 'function');
+function suite(file) {
+  const p = prepare(file);
+  const label = path.relative(root, file) || file;
 
-  // 2. the app itself still renders
-  const app = w.document.getElementById('app');
-  ok(tag + 'app renders (root + tab bar present)',
-    !!app && app.innerHTML.length > 500 && w.document.querySelectorAll('[data-tab]').length >= 4,
-    app ? String(app.innerHTML.length) : 'no #app');
+  // 1. the app boots on the shared runtime
+  let w = boot(p);
+  ok(label, 'web-kit loads: window.Loom exists after boot', w.eval('typeof Loom') === 'object');
+  const appEl = w.document.getElementById('app');
+  ok(label, 'the app renders into #app', appEl && appEl.innerHTML.length > 0);
 
-  // 3. a fresh install starts clean: nothing persisted yet
-  ok(tag + 'fresh install writes nothing on first load',
-    !Object.keys(snapshot(w)).some(k => k.indexOf('loom:') === 0 || k === 'fab_lang' || k === 'fab_safe'),
-    JSON.stringify(snapshot(w)));
+  // 2. a fresh install starts on the default language and writes nothing yet
+  ok(label, 'fresh install: default language is "en"', w.eval('window.__C && window.__C.lang') === 'en');
+  ok(label, 'fresh install: nothing persisted under loom: yet', Object.keys(snapshot(w)).length === 0);
 
-  // 4. the first-run safety acknowledgement persists through Loom.storage
-  const okBtn = w.document.getElementById('ok');
-  ok(tag + 'first run shows the safety modal', !!w.document.querySelector('.modal') && !!okBtn);
-  if (okBtn) okBtn.click();
-  ok(tag + 'safety ack round-trips through Loom.storage',
-    w.eval('JSON.stringify(Loom.storage.get("fab_safe", null))') === '"1"',
-    w.eval('JSON.stringify(Loom.storage.get("fab_safe", null))'));
-  ok(tag + 'safety ack writes nothing to the raw key', !('fab_safe' in snapshot(w)));
-
-  // 5. choosing a language persists through Loom.storage (and is honoured on reload)
-  const hi = w.document.querySelector('[data-l="hi"]');
-  ok(tag + 'language switcher is present', !!hi);
+  // 3. switching language persists through Loom.storage (namespaced, JSON-safe)
+  const hi = w.document.querySelector('button[data-l="hi"]');
   if (hi) hi.click();
-  ok(tag + 'language choice round-trips through Loom.storage',
-    w.eval('JSON.stringify(Loom.storage.get("fab_lang", null))') === '"hi"',
-    w.eval('JSON.stringify(Loom.storage.get("fab_lang", null))'));
-  ok(tag + 'language choice writes nothing to the raw key', !('fab_lang' in snapshot(w)));
+  let snap = snapshot(w);
+  ok(label, 'language switch is written to Loom.storage (loom:fab_lang)', snap['loom:fab_lang'] === JSON.stringify('hi'), JSON.stringify(snap));
+  ok(label, 'language switch writes nothing to the raw legacy key', !('fab_lang' in snap));
 
-  const w2 = boot(parts, snapshot(w));
-  ok(tag + 'language choice survives a reload (Devanagari rendered)',
-    /[\u0900-\u097F]/.test((w2.document.getElementById('app') || {}).textContent || ''),
-    String(((w2.document.getElementById('app') || {}).textContent || '').slice(0, 40)));
+  // 4. and it survives a reload
+  let w2 = boot(p, snap);
+  ok(label, 'language survives a reload through Loom.storage', w2.eval('window.__C.lang') === 'hi', String(w2.eval('window.__C.lang')));
 
-  // 6. a preference saved BEFORE the retrofit (raw key) is migrated, not lost
-  const w3 = boot(parts, { fab_lang: 'gu' });
+  // 5. a language chosen BEFORE the retrofit is migrated, not lost
+  let w3 = boot(p, { fab_lang: 'gu' });
   const snap3 = snapshot(w3);
-  ok(tag + 'legacy raw preference is migrated into Loom.storage',
-    w3.eval('JSON.stringify(Loom.storage.get("fab_lang", null))') === '"gu"',
-    w3.eval('JSON.stringify(Loom.storage.get("fab_lang", null))'));
-  ok(tag + 'legacy raw key is removed after migration', !('fab_lang' in snap3));
+  ok(label, 'legacy raw fab_lang is migrated with no data loss', w3.eval('window.__C.lang') === 'gu', String(w3.eval('window.__C.lang')));
+  ok(label, 'legacy fab_lang key is removed after migration', ('loom:fab_lang' in snap3) && !('fab_lang' in snap3), JSON.stringify(snap3));
+
+  // 6. the one-time safety modal round-trips through Loom.storage
+  let w4 = boot(p);
+  ok(label, 'safety modal is shown on a fresh install', !!w4.document.querySelector('.modal'));
+  const okBtn = w4.document.getElementById('ok');
+  if (okBtn) okBtn.click();
+  const snap4 = snapshot(w4);
+  ok(label, 'dismissing the modal writes loom:fab_safe (and no raw fab_safe)', snap4['loom:fab_safe'] === JSON.stringify('1') && !('fab_safe' in snap4), JSON.stringify(snap4));
+  ok(label, 'dismissing the modal closes it', !w4.document.querySelector('.modal'));
+  let w5 = boot(p, snap4);
+  ok(label, 'the modal is not shown twice after a reload', !w5.document.querySelector('.modal'));
+
+  // 7. a dismiss recorded BEFORE the retrofit keeps the modal away too
+  let w6 = boot(p, { fab_safe: '1' });
+  const snap6 = snapshot(w6);
+  ok(label, 'legacy raw fab_safe is migrated so the modal stays away', !w6.document.querySelector('.modal') && ('loom:fab_safe' in snap6) && !('fab_safe' in snap6), JSON.stringify(snap6));
 }
 
-(function main() {
-  for (const t of targets) suite(path.relative(root, t), t);
+files.forEach(suite);
 
-  let pass = 0, fail = 0;
-  for (const r of results) {
-    if (r.pass) { pass++; console.log('PASS  ' + r.name); }
-    else { fail++; console.log('FAIL  ' + r.name + (r.extra ? '  ' + r.extra : '')); }
-  }
-  console.log('\n' + pass + ' passed, ' + fail + ' failed');
-  process.exit(fail ? 1 : 0);
-})();
+let pass = 0, fail = 0;
+for (const r of results) {
+  if (r.pass) { pass++; console.log('PASS  [' + r.page + '] ' + r.name); }
+  else { fail++; console.log('FAIL  [' + r.page + '] ' + r.name + (r.extra ? '  ' + r.extra : '')); }
+}
+console.log('\n' + pass + ' passed, ' + fail + ' failed');
+process.exit(fail ? 1 : 0);

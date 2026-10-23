@@ -2,7 +2,7 @@
   "name": "whispering-body-first-aid",
   "version": "1.0.0",
   "private": true,
-  "description": "The Whispering Body - First-Aid Box: offline homoeopathic first-aid companion.",
+  "description": "The Whispering Body - First-Aid Box: an offline homeopathic first-aid companion app.",
   "scripts": {
     "test": "node tests/webkit-smoke.test.js"
   },
