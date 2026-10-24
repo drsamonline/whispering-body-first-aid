@@ -1,23 +1,48 @@
-name: Build portable EXE + Android APK
-
-# RETROFIT (Forge): this app now uses the shared, reusable build workflow instead
-# of a bespoke one. The app is a single-file PWA at the repo root, so app_src is
-# "." — the workflow packages the whole app folder into the EXE and the APK.
+# Build + release + deploy. One push, one pipeline, all from the same commit.
 #
-# (A public repo can only call public reusable workflows, so the shared build
-# lives in the public app-builder kit.)
+# SPDX-FileCopyrightText: 2026 Dr Sohil Momin
+# SPDX-License-Identifier: LicenseRef-Forge-Proprietary
+#
+# This file is intentionally tiny: the whole pipeline lives in the public
+# app-builder kit, so a fix there reaches every app at once. It used to be a
+# 4.9 kB hand-copied workflow, and the copies drifted - one of them kept
+# `if: always()` on the release job, which DELETED the published release before
+# recreating it, so a failed build destroyed the release. Do not inline it again.
+#
+# What it does on every push to main:
+#   build the portable EXE and the signed APK -> publish the rolling `app-latest`
+#   release -> deploy the demo to Pages. All three come from the same commit, so
+#   the live demo and the released build can never disagree.
+#
+# Pull requests build (and are therefore checked) but never release or deploy.
+
+name: Build + deploy
 
 on:
   push:
     branches: [ main ]
-  workflow_dispatch: {}
+  pull_request:
+    branches: [ main ]
+  workflow_dispatch:
 
 permissions:
   contents: write
+  pages: write
+  id-token: write
+
+concurrency:
+  group: build
+  cancel-in-progress: true
 
 jobs:
-  build:
+  app:
     uses: drsamonline/app-builder/.github/workflows/build.yml@main
     with:
       app_name: whispering-body-first-aid
       app_src: .
+      deploy_path: docs
+    permissions:
+      contents: write
+      pages: write
+      id-token: true
+      id-token: write
