@@ -1,3 +1,10 @@
+
+
+<!-- shot:start -->
+
+![Screenshot](docs/shot.png)
+
+<!-- shot:end -->
 <!-- ===== Landing page banner ===== -->
 <h1 align="center">The Whispering Body — First‑Aid Box</h1>
 
