@@ -52,7 +52,33 @@
       },
       put: function (db, store, k, v) { return tx(db, store, "readwrite", function (s) { return s.put(v, k); }); },
       getItem: function (db, store, k) { return tx(db, store, "readonly", function (s) { return s.get(k); }); },
-      all: function (db, store) { return tx(db, store, "readonly", function (s) { return s.getAll(); }); }
+      all: function (db, store) { return tx(db, store, "readonly", function (s) { return s.getAll(); }); },
+
+      /* ---------- namespace (opt-in, default unchanged) ----------
+       * An app that already has keys under its OWN prefix cannot adopt this store
+       * without orphaning what its users have saved: every read would miss. Until
+       * now the prefix was fixed at "loom:", so three repos that vendor this kit
+       * and never call it (kent-repertory-explorer, offline-pdf-toolkit,
+       * remedy-relationship-explorer) had no way across.
+       *
+       * Call it ONCE, before the first read, and the store uses that prefix:
+       *
+       *     Loom.storage.namespace("rre").get("cases")   // reads "rre:cases"
+       *
+       * The default is untouched: an app that never calls this sees exactly the
+       * keys it saw before, which is why this is safe to ship to every consumer.
+       * Pass "" or null to go back to "loom:". The name is stripped to
+       * [A-Za-z0-9_.-] so a namespace cannot smuggle in a separator of its own.
+       */
+      namespace: function (name) {
+        if (name == null || name === "") { PREFIX = "loom:"; return this; }
+        var s = String(name).replace(/[^A-Za-z0-9_.-]/g, "");
+        PREFIX = s ? s + ":" : "loom:";
+        return this;
+      },
+      /* what prefix the store is writing under right now - so a migration script
+         can prove which key a value lives at instead of assuming */
+      prefix: function () { return PREFIX; }
     };
   })();
 
@@ -78,7 +104,11 @@
 
   /* ---------- csv ---------- */
   Loom.csv = (function () {
-    function esc(v) { v = v == null ? "" : String(v); return /[",\n]/.test(v) ? '"' + v.replace(/"/g, '""') + '"' : v; }
+    // CSV injection guard: a leading = + - @ (or TAB/CR) is a FORMULA to Excel and
+    // Sheets. Prefix it with an apostrophe - but leave a NUMBER alone, so "-5"
+    // does not become "'-5". (The apps had this guard before the kit did.)
+    function csvSafe(v) { v = v == null ? "" : String(v); return (/^[=+\-@\t\r]/.test(v) && !/^[+-]?(\d+\.?\d*|\.\d+)([eE][+-]?\d+)?$/.test(v)) ? "'" + v : v; }
+    function esc(v) { v = csvSafe(v); return /[",\n]/.test(v) ? '"' + v.replace(/"/g, '""') + '"' : v; }
     function parseLine(line) {
       var out = [], cur = "", q = false;
       for (var i = 0; i < line.length; i++) {
@@ -96,6 +126,7 @@
       return out;
     }
     return {
+      csvSafe: csvSafe,
       toCSV: function (rows) {
         if (!rows || !rows.length) return "";
         var cols = Object.keys(rows[0]);
