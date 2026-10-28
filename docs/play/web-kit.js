@@ -1,6 +1,6 @@
 /* web-kit — the shared offline-first runtime for drsamonline apps.
  * One file. No build step. No CDN. Works from file:// and GitHub Pages.
- * MIT License. (c) 2026 Dr Sohil Momin.
+ * PolyForm Noncommercial 1.0.0. (c) 2026 Dr Sohil Momin.
  *
  * Exposes window.Loom with: storage, i18n, csv, theme, a11y, pwa, seo, ui.
  */
