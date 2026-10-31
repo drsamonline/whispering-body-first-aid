@@ -66,21 +66,5 @@ window.addEventListener("error", function () { window.__bootError = true; });
     setTimeout(function () { URL.revokeObjectURL(a.href); }, 1000);
   });
 })();
-</script><style id="app-theme">
-  /* whispering-body-first-aid - its own palette, type and shape.
-     Keyed on data-theme so the in-app theme toggle still works; !important is
-     required because web-kit sets these as inline styles on <html>. */
-  html[data-theme="dark"]{--bg:#14080c !important;--card:#230a0e !important;--ink:#fdf0f0 !important;--mut:#af626c !important;--line:#390e11 !important;--acc:#e66363 !important;}
-  html[data-theme="light"]{--bg:#fdf5f5 !important;--card:#ffffff !important;--ink:#241218 !important;--mut:#af3c41 !important;--line:#fae1e1 !important;--acc:#b41f1f !important;}
-  html,body{font-family:ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, sans-serif !important;letter-spacing:0 !important;
-    background-image:radial-gradient(820px 360px at 50% -170px,
-      color-mix(in srgb, var(--acc) 16%, transparent), transparent 72%) !important;
-    background-repeat:no-repeat !important;background-attachment:fixed !important}
-  button,input,textarea,select{font-family:ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, sans-serif !important}
-  button,.btn{border-radius:12px !important}
-  input,textarea,select{border-radius:10px !important}
-  .card,[class*="card"]{border-radius:14px !important}
-  button:not(.ghost):not(.tab){background:var(--acc) !important}
-</style>
-</body>
+</script></body>
 </html>
