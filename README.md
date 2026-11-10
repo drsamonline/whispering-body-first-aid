@@ -105,6 +105,21 @@ remedy is made, how to pace a dose, and the listening loop.
 
 > This app gives **general information** about homeopathic first-aid practice. It is **not** a substitute for diagnosis or treatment by a qualified clinician, and it is never a reason to delay conventional medical care. In an emergency, seek conventional medical help first — in India, call **112** or **108**.
 
+<!-- support:sweep -->
+## Support
+
+One person's work: no company, no ads, no tracking, no paid tier. If it saved you an
+afternoon, a contribution keeps the next one coming — any amount, or none.
+
+| | |
+|---|---|
+| **UPI** | `drsohilboi@ybl` |
+| **Ko-fi** | [ko-fi.com/matneo](https://ko-fi.com/matneo) |
+| **PayPal** | [paypal.me/drsohilmomin](https://paypal.me/drsohilmomin?locale.x=en_GB&country.x=IN) |
+| **Books** | [the author's other work](https://www.amazon.com/stores/author/B08ZT331LY/allbooks) |
+| **Elsewhere** | [all projects](https://drsamonline.github.io/) |
+| **Email** | [sohilmomin2000@gmail.com](mailto:sohilmomin2000@gmail.com) — bugs, corrections, requests |
+
 ## Licence
 
 <p>
