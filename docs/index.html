@@ -391,6 +391,10 @@ a[href*="/releases/latest/download/"] svg{width:18px;height:18px;flex:none;displ
   } catch (e) { document.documentElement.setAttribute("data-theme", "light"); }
 })();
 </script>
+<style>
+/* ---- a11y: the red is light in the dark theme ----------------------------- */
+[data-theme="dark"] a.btn.btn-red{color:#2a0a0a!important}   /* 2.77 -> 6.9 on #f87171 */
+</style>
 </head>
 <body>
 
