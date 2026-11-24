@@ -36,7 +36,7 @@ concurrency:
 
 jobs:
   app:
-    uses: drsamonline/app-builder/.github/workflows/build.yml@85949b5b7ef6a47a40731cc01e8c2cd65ceeda4c   # was @main
+    uses: drsamonline/app-builder/.github/workflows/build.yml@e741a775b630a34b5da99af794565f95920a7b3c   # was @main
     with:
       app_name: whispering-body-first-aid
       app_src: .
